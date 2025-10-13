@@ -1,0 +1,30 @@
+{
+  "name": "clock",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Kieran Huggins",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "dist": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "coffeescript": "^2.7.0",
+    "esbuild": "^0.25.10",
+    "fast-glob": "^3.3.3",
+    "sass": "^1.93.2",
+    "unplugin-auto-import": "^20.2.0",
+    "vite": "^7.1.7",
+    "vite-bundle-analyzer": "^1.2.3",
+    "vite-plugin-coffee3": "^1.0.1"
+  },
+  "dependencies": {
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  }
+}
