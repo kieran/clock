@@ -23,18 +23,20 @@ class Clock extends React.Component
   updateTime: =>
     @setState time()
 
+  blankScreen: =>
+    @setState show: false
+
   componentDidMount: =>
     @interval = setInterval @updateTime, 1000
 
+    # turn off after X minutes: ?sleep=10
+    # good for OLED displays when used as a screensaver
+    if sleep = parseInt new URLSearchParams(location.search).get 'sleep'
+      @timeout = setTimeout @blankScreen, sleep * 60 * 1000
+
   componentWillUnmount: =>
     clearInterval @interval
-
-  componentDidMount: =>
-    # turn off after 10 minutes
-    # @timeout = setTimeout @blankScreen, 10 * 60 * 1000
-
-  componentWillUnmount: =>
-    # clearTimeout @timeout
+    clearTimeout @timeout
 
   render: ->
     <div
@@ -49,8 +51,8 @@ class Digital extends React.Component
   render: ->
     { hours, minutes, seconds } = @props
     <div className="Digital">
-      <span class="time">
-        {hours}:{minutes}
+      <span className="time">
+        {hours}:{"#{minutes}".padStart 2, '0'}
       </span>
     </div>
 
