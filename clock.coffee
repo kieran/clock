@@ -52,7 +52,9 @@ class Digital extends React.Component
     { hours, minutes, seconds } = @props
     <div className="Digital">
       <span className="time">
-        {hours}:{"#{minutes}".padStart 2, '0'}
+        <span className="hours">{hours}</span>
+        <span className="colon" style={opacity: Math.min 1, 0.66 + seconds % 2}>:</span>
+        <span className="minutes">{"#{minutes}".padStart 2, '0'}</span>
       </span>
     </div>
 
