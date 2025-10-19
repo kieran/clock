@@ -15,6 +15,10 @@ url = new URL location.href
   analog
 } = Object.fromEntries url.searchParams
 
+defaults =
+  digital: 10
+  analog: 100
+
 # get the current time
 time = ->
   now = new Date
@@ -30,8 +34,8 @@ class Clock extends React.Component
     @state = {
       time()...
       show: false
-      digital: parseInt digital or 10
-      analog: parseInt analog or 100
+      digital: parseInt digital or defaults.digital
+      analog: parseInt analog or defaults.analog
     }
     # fade in
     setTimeout @setState.bind(@, show: true), 1000
@@ -39,8 +43,8 @@ class Clock extends React.Component
   persistState: =>
     url.searchParams.delete 'digital'
     url.searchParams.delete 'analog'
-    url.searchParams.set 'digital', @state.digital unless @state.digital is 10
-    url.searchParams.set 'analog', @state.analog unless @state.analog is 100
+    url.searchParams.set 'digital', @state.digital unless @state.digital is defaults.digital
+    url.searchParams.set 'analog', @state.analog unless @state.analog is defaults.analog
     history.replaceState {}, null, url.href
 
   handleKeyDown: (e)=>
