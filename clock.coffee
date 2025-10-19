@@ -1,10 +1,6 @@
 import React from 'react'
 import './styles'
 
-# get the previous midnight as a reference point, once per load
-midnight = new Date
-midnight.setHours 0, 0, 0, 0
-
 # get the initial config, and a handle for updating the URL
 url = new URL location.href
 
@@ -19,9 +15,15 @@ defaults =
   digital: 10
   analog: 100
 
+# get the previous midnight as a reference point, once per load
+midnight = new Date
+midnight.setHours 0, 0, 0, 0
+
 # get the current time
 time = ->
   now = new Date
+  document.title = now.toLocaleTimeString()
+
   hours:    now.getHours() % 12
   minutes:  now.getMinutes()
   seconds:  now.getSeconds()
@@ -86,32 +88,27 @@ class Clock extends React.Component
       <Analog {@state...} style={opacity: 0.01 * @state.analog} />
     </div>
 
-class Digital extends React.Component
-  render: ->
-    { hours, minutes, seconds, style } = @props
-    <div className="Digital" style={style}>
-      <span className="time">
-        <span className="hours">{hours}</span>
-        <span className="colon" style={opacity: Math.min 1, 0.66 + seconds % 2}>:</span>
-        <span className="minutes">{"#{minutes}".padStart 2, '0'}</span>
-      </span>
-    </div>
+Digital = ({ hours, minutes, seconds, style })->
+  <div className="Digital" style={style}>
+    <span className="time">
+      <span className="hours">{hours}</span>
+      <span className="colon" style={opacity: Math.min 1, 0.66 + seconds % 2}>:</span>
+      <span className="minutes">{"#{minutes}".padStart 2, '0'}</span>
+    </span>
+  </div>
 
-class Analog extends React.Component
-  render: ->
-    { elapsed, style } = @props
-
-    <div className="Analog" style={style}>
-      <div
-        className="hour"
-        style={transform: "rotate(#{360 / 12 * elapsed / 60 / 60}deg)"}
-      />
-      <div
-        className="minute"
-        style={transform: "rotate(#{360 / 60 * elapsed / 60}deg)"}
-      />
-      <div
-        className="second"
-        style={transform: "rotate(#{(360 / 60) * elapsed}deg)"}
-      />
-    </div>
+Analog = ({ elapsed, style })->
+  <div className="Analog" style={style}>
+    <div
+      className="hour"
+      style={transform: "rotate(#{Math.floor 360 / 12 * elapsed / 60 / 60}deg)"}
+    />
+    <div
+      className="minute"
+      style={transform: "rotate(#{Math.floor 360 / 60 * elapsed / 60}deg)"}
+    />
+    <div
+      className="second"
+      style={transform: "rotate(#{(360 / 60) * elapsed}deg)"}
+    />
+  </div>
