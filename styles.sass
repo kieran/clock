@@ -17,6 +17,10 @@ body, html
   align-items: center
   overflow: hidden
 
+  // reduce brightness by 15% at night
+  @media (prefers-color-scheme: dark)
+    filter: brightness(85%)
+
   .Clock
     position: absolute
     height: 100dvh
