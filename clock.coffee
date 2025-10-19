@@ -30,7 +30,7 @@ class Clock extends React.Component
     @state = {
       time()...
       show: false
-      digital: parseInt digital or 5
+      digital: parseInt digital or 10
       analog: parseInt analog or 100
     }
     # fade in
@@ -39,7 +39,7 @@ class Clock extends React.Component
   persistState: =>
     url.searchParams.delete 'digital'
     url.searchParams.delete 'analog'
-    url.searchParams.set 'digital', @state.digital unless @state.digital is 5
+    url.searchParams.set 'digital', @state.digital unless @state.digital is 10
     url.searchParams.set 'analog', @state.analog unless @state.analog is 100
     history.replaceState {}, null, url.href
 
