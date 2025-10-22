@@ -24,7 +24,7 @@ time = ->
   now = new Date
   document.title = now.toLocaleTimeString()
 
-  hours:    now.getHours() % 12
+  hours:    now.getHours() % 12 or 12
   minutes:  now.getMinutes()
   seconds:  now.getSeconds()
   elapsed:  Math.floor (now.getTime() - midnight.getTime()) / 1000
